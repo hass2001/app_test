@@ -1,0 +1,9 @@
+stage('SonarQube Analysis') {
+          steps {
+              sh " /opt/sonar-scanner/bin/sonar-scanner  \
+-Dsonar.projectKey=app de test
+-Dsonar.sources=. \
+-Dsonar.host.url=http://192.168.62.25:9000  \
+-Dsonar.language=py  \
+-Dsonar.login=admin
+
