@@ -1,7 +1,16 @@
+pipeline {
+    agent any
+
+    environment {
+        
+        SONARQUBE_URL = 'http://192.168.62.25:9000'
+        PROJECT_KEY = 'app-de-test'
+        NODEJS_EXECUTABLE = '/root/.nvm/versions/node/v18.20.4/bin/node'
+    }
 stage('SonarQube Analysis') {
           steps {
               sh " /opt/sonar-scanner/bin/sonar-scanner  \
--Dsonar.projectKey=app de test
+-Dsonar.projectKey=app-de-test
 -Dsonar.sources=. \
 -Dsonar.host.url=http://192.168.62.25:9000  \
 -Dsonar.language=py  \
