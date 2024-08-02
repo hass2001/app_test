@@ -11,14 +11,14 @@ pipeline {
 stages {
         stage('Checkout') {
             steps {
-                
+                git branch: 'main', url: 'http://192.168.62.25:9000' 
                 checkout scm
             }
         }
 
 stage('SonarQube Analysis') {
           steps {
-              sh """ 
+              sh " 
 /opt/sonar-scanner/bin/sonar-scanner  \
 -Dsonar.projectKey=app-de-test
 -Dsonar.sources=. \
@@ -26,7 +26,7 @@ stage('SonarQube Analysis') {
 -Dsonar.language=py  \
 -Dsonar.login=squ_59f9977827f51805b9dc2f441c3c734aa4e64fa7
 -Dsonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node
-"""
+"
                 }
             }
       }  
