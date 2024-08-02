@@ -7,6 +7,15 @@ pipeline {
         PROJECT_KEY = 'app-de-test'
         NODEJS_EXECUTABLE = '/root/.nvm/versions/node/v18.20.4/bin/node'
     }
+
+stages {
+        stage('Checkout') {
+            steps {
+                
+                checkout scm
+            }
+        }
+
 stage('SonarQube Analysis') {
           steps {
               sh """ /opt/sonar-scanner/bin/sonar-scanner  \
