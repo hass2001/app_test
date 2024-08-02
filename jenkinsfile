@@ -5,5 +5,6 @@ stage('SonarQube Analysis') {
 -Dsonar.sources=. \
 -Dsonar.host.url=http://192.168.62.25:9000  \
 -Dsonar.language=py  \
--Dsonar.login=admin
+-Dsonar.login=squ_59f9977827f51805b9dc2f441c3c734aa4e64fa7
+-Dsonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node
 
