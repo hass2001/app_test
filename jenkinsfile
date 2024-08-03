@@ -10,15 +10,16 @@ pipeline {
 
 stages {
         stage('Checkout') {
+            
             steps {
-                git branch: 'main', url: 'http://192.168.62.25:9000' 
-                checkout scm
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/hass2001/app_test.git']]])
+        
             }
         }
 
 stage('SonarQube Analysis') {
           steps {
-              sh " 
+              sh """ 
 /opt/sonar-scanner/bin/sonar-scanner  \
 -Dsonar.projectKey=app-de-test
 -Dsonar.sources=. \
@@ -26,7 +27,7 @@ stage('SonarQube Analysis') {
 -Dsonar.language=py  \
 -Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66
 -Dsonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node
-"
+"""
                 }
             }
       }  
