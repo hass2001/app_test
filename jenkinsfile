@@ -2,39 +2,42 @@ pipeline {
     agent any
 
     environment {
+        
         SONARQUBE_URL = 'http://192.168.62.25:9000'
         PROJECT_KEY = 'app-de-test'
         SONAR_NODEJS_PATH = '/usr/bin/node'
     }
 
-    stages {
+stages {
         stage('Checkout') {
+            
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/hass2001/app_test.git']]])
+        
             }
         }
-
-        stage('Debug Path') {
+ stage('Debug Path') {
             steps {
+                
                 sh 'ls -l /opt/sonar-scanner/bin'
                 sh 'which sonar-scanner || echo "sonar-scanner not found"'
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh '''
-                            /opt/sonar-scanner/bin/sonar-scanner \
-                            -Dsonar.projectKey=app-de-test \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=http://192.168.62.25:9000 \
-                            -Dsonar.login=squ_22a9663552a74fc2c8e5fdf5a7c756a7e4f9540e
-                        '''
-                    }
+
+          stage('SonarQube Analysis') {
+    steps {
+        script {
+            withSonarQubeEnv('SonarQube') {
+                    sh """  /opt/sonar-scanner/bin/sonar-scanner
+                    -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_22a9663552a74fc2c8e5fdf5a7c756a7e4f9540e 
+                    """
+                 
                 }
-            }
         }
     }
 }
+ }  
+
+}
+
