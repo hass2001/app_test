@@ -19,15 +19,18 @@ stages {
 
 
           stage('SonarQube Analysis') {
-            steps {
-                script {
-                    
-                    withSonarQubeEnv('SonarQube') {
-                        sh 'sonar-scanner -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66'
-                    }
-                }
+    steps {
+        script {
+            withSonarQubeEnv('SonarQube') {
+                sh '''
+                export PATH=$PATH:/opt/sonar-scanner/bin
+                sonar-scanner -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66
+                '''
             }
         }
+    }
+}
+
       }  
 
 }
