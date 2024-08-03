@@ -22,10 +22,10 @@ stages {
     steps {
         script {
             withSonarQubeEnv('SonarQube') {
-                sh """
-                /opt/sonar-scanner/bin/sonar-scanner 
+                withEnv(["PATH+SONAR=/opt/sonar-scanner/bin/sonar-scanner"]) {
+                sh "
                 -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_22a9663552a74fc2c8e5fdf5a7c756a7e4f9540e
-                """
+                "
             }
         }
     }
@@ -33,4 +33,5 @@ stages {
 
       }  
 
+}
 }
