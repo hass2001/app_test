@@ -5,7 +5,7 @@ pipeline {
         
         SONARQUBE_URL = 'http://192.168.62.25:9000'
         PROJECT_KEY = 'app-de-test'
-        NODEJS_EXECUTABLE = '/root/.nvm/versions/node/v18.20.4/bin/node'
+        sonar.nodejs.executable= '/root/.nvm/versions/node/v18.20.4/bin/node'
     }
 
 stages {
