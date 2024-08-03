@@ -24,7 +24,7 @@ stages {
             withSonarQubeEnv('SonarQube') {
                 sh '''
                 export PATH=$PATH:/opt/sonar-scanner/bin
-                sonar-scanner -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66
+                sonar-scanner -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_22a9663552a74fc2c8e5fdf5a7c756a7e4f9540e
                 '''
             }
         }
