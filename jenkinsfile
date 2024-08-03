@@ -17,19 +17,17 @@ stages {
             }
         }
 
-stage('SonarQube Analysis') {
-          steps {
-withEnv(["sonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node"]) {
-              sh """ 
-/opt/sonar-scanner/bin/sonar-scanner  \
--Dsonar.projectKey=app-de-test
--Dsonar.host.url=http://192.168.62.25:9000  \
--Dsonar.language=py  \
--Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66
--Dsonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node
-"""
+
+          stage('SonarQube Analysis') {
+            steps {
+                script {
+                    
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'sonar-scanner -Dsonar.projectKey=app-de-test -Dsonar.sources=. -Dsonar.host.url=http://192.168.62.25:9000 -Dsonar.login=squ_2f2beafc275c5b5f0f54558122885db5cf386d66'
+                    }
                 }
             }
+        }
       }  
-}
+
 }
