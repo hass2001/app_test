@@ -19,6 +19,7 @@ stages {
 
 stage('SonarQube Analysis') {
           steps {
+withEnv(["sonar.nodejs.executable=/root/.nvm/versions/node/v18.20.4/bin/node"]) {
               sh """ 
 /opt/sonar-scanner/bin/sonar-scanner  \
 -Dsonar.projectKey=app-de-test
@@ -31,4 +32,5 @@ stage('SonarQube Analysis') {
                 }
             }
       }  
+}
 }
