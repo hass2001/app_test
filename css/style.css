@@ -19,11 +19,60 @@ nav{
 	padding-left: 8%;
 	padding-right: 8%;
 }
-.logo{
-	color: #03224c;
-	font-size: 35px;
-	letter-spacing: 1px;
-	cursor: pointer;
+
+
+
+.image-container {
+    width: 400px; /* Largeur de l'image */
+    height: 400px; /* Hauteur de l'image */
+    position: relative;
+    margin: 50px auto; /* Centrer horizontalement avec un espace en haut */
+    overflow: hidden;
+}
+
+.image-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+.image-hover {
+    opacity: 0;
+}
+
+.image-container:hover .image-hover {
+    opacity: 1;
+}
+
+.image-container:hover .image {
+    opacity: 0;
+}
+
+
+.logo {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo h3 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.arabic {
+    font-family: 'Amiri', serif; /* Utilisez une police en arabe appropriée */
+    color: #876445; /* Couleur marron clair pour le texte en arabe */
+    margin-bottom: 5px; /* Espacement entre les deux h3 */
+}
+
+.english {
+    font-family: 'Arial Black', sans-serif;
+    color: #1d677b; /* Couleur bleu foncé pour le texte en anglais */
+}
+
+.english span {
+    color: #876445; /* Couleur marron clair pour "Group Holding" */
 }
 span{
 	color: blue;
@@ -240,6 +289,12 @@ h5{
 	flex-direction: column;
 	justify-content: center;
 }
+
+ .contact-me h3 {
+        color: white;
+    }
+	
+	
 .contact-me p{
 	color: white;
 	font-size: 30px;
@@ -315,3 +370,20 @@ footer p:nth-child(2){
 	width: 100%;
 	padding: 100px 0px;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+}
+
