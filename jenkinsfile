@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        
+        SONARQUBE_URL = 'http://192.168.62.25:9000'
+        PROJECT_KEY = 'app-de-test'
+        SONAR_NODEJS_PATH = '/usr/bin/node'
+    }
+
+stages {
+        stage('Checkout') {
+            
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/hass2001/app_test.git']]])
+        
+            }
+        }
+ stage('Debug Path') {
+            steps {
+                
+                sh 'ls -l /opt/sonar-scanner/bin'
+                sh 'which sonar-scanner || echo "sonar-scanner not found"'
+            }
+        }
+
+
+          stage('SonarQube Analysis') {
+    steps {
+        script {
+            withSonarQubeEnv('SonarQube') {
+                    sh """  /opt/sonar-scanner/bin/sonar-scanner
+                    
+                    """
+                 
+                }
+        }
+    }
+}
+ }  
+
+}
+
