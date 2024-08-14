@@ -6,6 +6,9 @@ pipeline {
         SONARQUBE_URL = 'http://192.168.62.25:9000'
         PROJECT_KEY = 'app-de-test'
         SONAR_NODEJS_PATH = '/usr/bin/node'
+        DOCKER_IMAGE ="my-app"
+        DOCKER_REGISTRY="192.168.62.25:80"
+        NEXUS_CREDENTIALS=credentials("pass_nexus")
     }
 
 stages {
@@ -37,6 +40,29 @@ stages {
         }
     }
 }
+stage ('Build Docker Image') {
+       steps {
+           sh "docker build - t ${DOCKER_IMAGE} ."
+       }}
+
+stage ('Tag Docker Image'){
+       steps {
+           sh "docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}"           
+       }}
+
+stage ('Docker Run') {
+       steps {
+           sh 'docker run -d -p 80:80 --name my-app --restart always ${DOCKER_IMAGE}'
+       }}
+
+stage ('Push Docker Image to Nexus'){
+       steps {
+           withCredentials([[$class: 'UsernamePasswordMultiBinding',credentialsID: 'pass_nexus', usernameVariable: 'NEXUS_USER',passwordVariable: 'NEXUS_PASSWORD']]){
+                sh "docker login -u ${NEXUS_USERNAME} -p ${NEXUS_PASSWORD} ${DOCKER_REGISTRY}"
+                sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}"
+       }}}
+
+
  }  
 
 }
