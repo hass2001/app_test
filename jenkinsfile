@@ -36,11 +36,14 @@ pipeline {
         }
 
         
-   stage ('Build Docker Image') {
-    steps {
-        sh "docker build -t ${DOCKER_IMAGE} -f /var/jenkins_home/portfo/Dockerfile ."
-    }
-}
+    stage('Clone Repository') {
+            steps {
+                git 'https://github.com/hass2001/app_test.git'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${DOCKER_IMAGE} -f Dockerfile ."
 
 
 
