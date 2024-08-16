@@ -5,8 +5,7 @@ pipeline {
         SONARQUBE_URL = 'http://192.168.62.25:9000'
         PROJECT_KEY = 'app-de-test'
         SONAR_NODEJS_PATH = '/usr/bin/node'
-        DOCKER_IMAGE = "my-app"
-        DOCKERFILE_PATH= '/home/osboxes'
+        
         
     }
 
@@ -34,11 +33,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${DOCKER_IMAGE} -f ${DOCKERFILE_PATH} . "
-            }
-        }
+        
 
        
 
