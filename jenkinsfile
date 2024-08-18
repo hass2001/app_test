@@ -48,19 +48,20 @@ stage ('Tag Docker Image'){
            sh "docker tag ${DOCKER_IMAGE} ${DOCKER_REGISTRY}/${DOCKER_IMAGE}"           
        }}
 
-stage ('Push Docker Image to Nexus'){
-       steps {
-           withCredentials([[$class: 'UsernamePasswordMultiBinding',credentialsID: 'pass_nexus', usernameVariable: 'NEXUS_USER',passwordVariable: 'NEXUS_PASSWORD']]){
-                sh "docker login -u ${NEXUS_USERNAME} -p ${NEXUS_PASSWORD} ${DOCKER_REGISTRY}"
-                sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}"
-}}}
+stage('Push Docker Image to Nexus') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'pass_nexus', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASSWORD')]) {
+                    sh "docker login -u ${NEXUS_USER} -p ${NEXUS_PASSWORD} ${DOCKER_REGISTRY}"
+                    sh "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE}"
+                }
+            }
+        }
 
-
-
-stage ('Docker Run') {
-       steps {
-           sh 'docker run -d -p 3000:80 --name my-app --restart always ${DOCKER_IMAGE}'
-       }}
+        stage('Docker Run') {
+            steps {
+                sh "docker run -d -p 3000:80 --name my-app --restart always ${DOCKER_IMAGE}"
+            }
+        }
 
 
 
