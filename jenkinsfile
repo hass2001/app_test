@@ -40,6 +40,10 @@ pipeline {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE} ."
 }}
+stage ('Docker Run') {
+       steps {
+           sh 'docker run -d -p 3000:80 --name my-app --restart always ${DOCKER_IMAGE}'
+       }}
 
 
        
