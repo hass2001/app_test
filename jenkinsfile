@@ -6,8 +6,7 @@ pipeline {
         PROJECT_KEY = 'app-de-test'
         SONAR_NODEJS_PATH = '/usr/bin/node'
         DOCKER_IMAGE="my-app"
-        DOCKER_REGISTRY="192.168.62.25:3001"
-        NEXUS_CREDENTIALS= credentials("pass_nexus")
+       
         
     }
 
@@ -39,7 +38,7 @@ pipeline {
    
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} -f /home/osboxes/portfo/Dockerfile ."
+                sh "docker build -t ${DOCKER_IMAGE} -f /home/osboxes/portfo ."
 }}
 
 
