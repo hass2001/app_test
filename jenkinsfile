@@ -59,9 +59,16 @@ stage('Push Docker Image to Nexus') {
 
         stage('Docker Run') {
             steps {
+
+            script {
+                    // Vérifier si le conteneur existe et le supprimer s'il existe
+                    def containerExists = sh(script: "docker ps -a -f name=my-app --format '{{.Names}}'", returnStdout: true).trim()
+                    if (containerExists == 'my-app') {
+                        sh "docker rm -f my-app"
+                    }
                 sh "docker run -d -p 3000:80 --name my-app --restart always ${DOCKER_IMAGE}"
             }
-        }
+        }}
 
 
 
