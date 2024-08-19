@@ -19,12 +19,7 @@ pipeline {
             }
         }
 
-        stage('Debug Path') {
-            steps {
-                sh 'ls -l /opt/sonar-scanner/bin'
-                sh 'which sonar-scanner || echo "sonar-scanner not found"'
-            }
-        }
+       
 
         stage('SonarQube Analysis') {
             steps {
